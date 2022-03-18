@@ -8,8 +8,10 @@ const getHeroeByID=(id)=>{
 }
 
 
-console.log(getHeroeByID(2));
+//console.log(getHeroeByID(2));
 
 const getHeroeByOwner=(owner)=> heroes.filter(heroe=>heroe.owner===owner);
 
-console.log(getHeroeByOwner('DC'));
+//console.log(getHeroeByOwner('DC'));
+export  {getHeroeByID , getHeroeByOwner
+    }
