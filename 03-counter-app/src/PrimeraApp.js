@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+//import { Fragment } from "react";
 import PropTypes from 'prop-types';
 
 const PrimeraApp = ({ pregunta, subtitulo}) => {
@@ -14,17 +14,15 @@ const PrimeraApp = ({ pregunta, subtitulo}) => {
         // <Fragment> tambien sirve en vez de <>
         <>
             <h1>{saludo} {JSON.stringify(persona.nombre)}</h1>
-            <p>{pregunta}</p>
+            {/* <p>{pregunta}</p> */}
             {/* <pre>JSON:{JSON.stringify(persona,null,3)}</pre> */}
-            <p>Mi primera Aplicación</p>
+            {/* <p>Mi primera Aplicación</p> */}
             <p>{subtitulo}</p>
         </>
         // </Fragment>
 
 
     );
-
-
 
 }
 

@@ -6,5 +6,5 @@ const ReactDOM = require('react-dom')
 
 const divRoot = document.querySelector('#root');
 
-// ReactDOM.render(<PrimeraApp pregunta="como estas?" />,divRoot);
-ReactDOM.render(<CounterApp value={13} />,divRoot);
+ //ReactDOM.render(<PrimeraApp pregunta="como estas?" />,divRoot);
+ReactDOM.render(<CounterApp value={0} />,divRoot);

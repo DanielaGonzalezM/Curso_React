@@ -1,17 +1,17 @@
 //npm run test
 
-describe('Pruebas en el archivo demo.test.js',()=>{
+describe('Pruebas en el archivo demo.test.js', () => {
 
-    test('deben ser iguales los string', () => { 
+    test('deben ser iguales los string', () => {
         //1. inicialización
-        const mensaje='Hola Mundo';
-    
+        const mensaje = 'Hola Mundo';
+
         //2. estímulo
-        const mensaje2=`Hola Mundo`;
-    
+        const mensaje2 = `Hola Mundo`;
+
         //3. Observar el comportamiento
         expect(mensaje).toBe(mensaje2);
-     })
+    })
 
 
 });
