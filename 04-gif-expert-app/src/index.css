@@ -1,0 +1,15 @@
+*{
+  font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+body{
+  padding: 60px;
+}
+
+input{
+  color: gray;
+  font-size: 1.2rem;
+  width: 100%;
+}
