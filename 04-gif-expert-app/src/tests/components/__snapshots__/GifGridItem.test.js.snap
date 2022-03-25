@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas componente GifGridItem El componente GifGridItem debe mostrarse correctamente 1`] = `
+<div
+  className="card  animate__animated  animate__zoomIn"
+>
+  <img
+    alt="cat"
+    src="https://giphy.com/gifs/emote-catjam-jpbnoe3UIa8TU8LM13"
+  />
+  <p>
+    cat
+  </p>
+</div>
+`;
