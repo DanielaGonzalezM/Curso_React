@@ -3,18 +3,16 @@ import "./styles.css";
 import { todoReducer } from "./todoReducer";
 import { useForms } from "../../hooks/useForms";
 
-const initialState = [
-  {
-    id: new Date().getTime(),
-    desc: "Aprender React",
-    done: false,
-  },
-];
+// const initialState = [
+//   {
+//     id: new Date().getTime(),
+//     desc: "Aprender React",
+//     done: false,
+//   },
+// ];
 
 const init = () => {
-  
-  return JSON.parse(localStorage.getItem('todos')) || [];
-
+  return JSON.parse(localStorage.getItem("todos")) || [];
 };
 const TodoApp = () => {
   const [todos, dispatch] = useReducer(todoReducer, [], init);
@@ -24,10 +22,25 @@ const TodoApp = () => {
     description: "",
   });
 
-  useEffect(()=>{
-    localStorage.setItem('todos',JSON.stringify(todos))
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
-  },[todos]);
+  const handleToggle = (todoId) => {
+    dispatch({
+      type: "toggle",
+      payload: todoId,
+    });
+  };
+  const handleDelete = (todoId) => {
+    const action = {
+      type: "delete",
+      payload: todoId,
+    };
+    console.log(todoId);
+    dispatch(action);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -56,10 +69,19 @@ const TodoApp = () => {
           <ul className="list-group list-group-flush">
             {todos.map((todos, i) => (
               <li className="list-group-item" key={todos.id}>
-                <p className="text-center">
+                <p
+                
+                  onClick={() => handleToggle(todos.id)}
+                  className={ `${todos.done && 'complete'}` }
+                >
                   {i + 1}. {todos.desc}
                 </p>
-                <button className="btn btn-danger">Borrar</button>
+                <button
+                  onClick={() => handleDelete(todos.id)}
+                  className="btn btn-danger"
+                >
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
