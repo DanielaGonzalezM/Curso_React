@@ -1,15 +1,15 @@
 import { mount } from "enzyme";
-import HomeScreen from "../../../../components/09-useContext/HomeScreen";
+import AppRouter from "../../../../components/09-useContext/AppRouter";
 import UserContext from "../../../../components/09-useContext/UserContext";
 
-describe("Pruebas HomeScreen", () => {
+describe("Pruebas AppRouter", () => {
   const user = {
+    id: 1,
     name: "Daniela",
-    email: "daniela@gmail.com",
   };
   const wrapper = mount(
-    <UserContext.Provider value={{ user }}>
-      <HomeScreen />
+    <UserContext.Provider value={user}>
+      <AppRouter />
     </UserContext.Provider>
   );
 
