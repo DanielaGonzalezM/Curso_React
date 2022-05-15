@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Router, Routes ,  Navigate} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Navbar } from '../components/ui/Navbar'
 import MarvelScreen from "../components/marvel/MarvelScreen";
 import SearchScreen from "../components/search/SearchScreen";
