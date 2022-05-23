@@ -4,20 +4,27 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginScreen from "../components/login/LoginScreen";
 
 import DashboardRoutes from "./DashboardRoutes";
-import PrivateRouter from "./PrivateRouter";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const AppRouter = () => {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/login" 
+          element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
+            />
           <Route
             path="/*"
             element={
-              <PrivateRouter>
+              <PrivateRoute>
                 <DashboardRoutes />
-              </PrivateRouter>
+              </PrivateRoute>
             }
           />
         </Routes>
