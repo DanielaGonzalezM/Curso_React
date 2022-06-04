@@ -22,7 +22,7 @@ describe("Pruebas en authReducer", () => {
     const action = {
       type: types.logout,
     };
-    const state = authReducer({ logged: true, name: 'Daniela' }, action);
+    const state = authReducer({ logged: true, name: "Daniela" }, action);
     expect(state).toEqual({ logged: false });
   });
 });
