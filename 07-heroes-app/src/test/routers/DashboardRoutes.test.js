@@ -22,4 +22,29 @@ describe("pruebas DashboardRoutes", () => {
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.find(".text-info").text().trim()).toBe("Dani");
   });
+
+  test("should mostrarse correctamente - Marvel", () => {
+    const wrapper = mount(
+      <AuthContext.Provider value={contextValue}>
+        <MemoryRouter initialEntries={["/"]}>
+          <DashboardRoutes />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find(".text-info").text().trim()).toBe("Dani");
+    expect(wrapper.find("h1").text().trim()).toBe("MarvelScreen");
+  });
+
+  test("should mostrarse correctamente - dc", () => {
+    const wrapper = mount(
+      <AuthContext.Provider value={contextValue}>
+        <MemoryRouter initialEntries={["/dc"]}>
+          <DashboardRoutes />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find("h1").text().trim()).toBe("DcScreen");
+  });
 });
