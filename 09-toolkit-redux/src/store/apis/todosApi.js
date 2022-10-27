@@ -8,9 +8,12 @@ export const todosApi = createApi({
     endpoints: (builder) => ({
         getTodos: builder.query({
             query: () => '/todos'
+        }),
+        getTodo: builder.query({
+            query: (todoId) => `/todos/${todoId}`
         })
     })
 
 })
 
-export const { useGetTodosQuery } = todosApi;
+export const { useGetTodosQuery, useGetTodoQuery } = todosApi;
