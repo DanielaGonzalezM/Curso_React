@@ -2,19 +2,39 @@ import { Link as RouterLink } from "react-router-dom";
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
-const formData = {
-  email: 'daniela@gmail.com',
-  password: '123456',
-  displayName: 'Daniela González'
-}
-export const RegisterPage = () => {
 
-  const { displayName, email, password, onInputChange, formState } = useForm(formData);
+const formData = {
+  email: "daniela@gmail.com",
+  password: "123456",
+  displayName: "Daniela González",
+};
+
+const formValidations = {
+  email: [(value) => value.includes("@"), "El correo debe tener una @"],
+  password: [
+    (value) => value.length >= 6,
+    "El password debe de tener almenos 6 letras",
+  ],
+  displayName: [(value) => value.length >= 1, "El nombre es obligatorio"],
+};
+
+export const RegisterPage = () => {
+  const {
+    displayName,
+    email,
+    password,
+    onInputChange,
+    formState,
+    isFormValid,
+    displayNameValid,
+    emailValid,
+    passwordValid,
+  } = useForm(formData,formValidations);
 
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(formState);
-  }
+  };
   return (
     <AuthLayout title="Crear cuenta">
       <form onSubmit={onSubmit}>
@@ -28,6 +48,8 @@ export const RegisterPage = () => {
               name="displayName"
               value={displayName}
               onChange={onInputChange}
+              error={!displayNameValid}
+              helperText={displayNameValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
