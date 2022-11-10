@@ -19,11 +19,9 @@ export const LoginPage = () => {
   });
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(email);
     dispatch(checkingAuthentication());
   }
   const onGoogleSignIn = () => {
-    console.log('GoogleSignIn');
     dispatch(startGoogleSingIn());
 
   }
