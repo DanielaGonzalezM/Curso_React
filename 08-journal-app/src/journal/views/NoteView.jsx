@@ -4,7 +4,11 @@ import React, { useMemo } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { setActiveNote, startSaveNote, startUploadingFiles } from "../../store/journal";
+import {
+  setActiveNote,
+  startSaveNote,
+  startUploadingFiles,
+} from "../../store/journal";
 import { ImageGallery } from "../components";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
@@ -101,7 +105,7 @@ export const NoteView = () => {
           onChange={onInputChange}
         />
       </Grid>
-      <ImageGallery />
+      <ImageGallery images={note.imageUrls} />
     </Grid>
   );
 };
