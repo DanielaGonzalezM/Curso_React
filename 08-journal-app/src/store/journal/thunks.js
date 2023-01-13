@@ -1,9 +1,10 @@
-import { collection, doc, setDoc } from "firebase/firestore/lite";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { fileUpload } from "../../helpers";
 import { loadNotes } from "../../helpers/loadNotes";
 import {
   addNewEmptyNote,
+  deleteNoteById,
   savingNewNote,
   setActiveNote,
   setNotes,
@@ -49,23 +50,33 @@ export const startSaveNote = () => {
     delete noteToFireStore.id;
     const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
     const resp = await setDoc(docRef, noteToFireStore, { merge: true });
-    if(!!resp) throw new Error("Error al guardar"); 
+    if (!!resp) throw new Error("Error al guardar");
 
     dispatch(updateNote(note));
   };
 };
 
-export const startUploadingFiles = (files = [])=>{
-
-  return async(dispatch,getState) =>{
+export const startUploadingFiles = (files = []) => {
+  return async (dispatch, getState) => {
     dispatch(setSaving());
-    const fileUploadPromises =[];
+    const fileUploadPromises = [];
     for (const file of files) {
       console.log(file);
-      fileUploadPromises.push( fileUpload(file));
+      fileUploadPromises.push(fileUpload(file));
     }
     const photosURLs = await Promise.all(fileUploadPromises);
-    dispatch(setPhotosToActiveNote(photosURLs))
-  }
+    dispatch(setPhotosToActiveNote(photosURLs));
+  };
+};
 
-}
+export const startDeletingNote = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+
+    const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
+    const resp = await deleteDoc(docRef);
+
+    dispatch(deleteNoteById(note.id));
+  };
+};
