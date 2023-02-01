@@ -6,6 +6,10 @@ import { LoginPage } from "../../../src/auth/pages/LoginPage";
 import { authSlice } from "../../../src/store/auth";
 import { notAuthenticatedState } from "../../fixtures/authFixtures";
 
+const mockStartGoogleSingIn = jest.fn();
+jest.mock("../../../src/store/auth/thunks", () => ({
+  startGoogleSingIn: () => mockStartGoogleSingIn,
+}));
 const store = configureStore({
   reducer: { auth: authSlice.reducer },
   preloadedState: { auth: notAuthenticatedState },
@@ -34,5 +38,6 @@ describe("Pruebas LoginPage", () => {
 
     const googleBtn = screen.getByLabelText("google-btn");
     fireEvent.click(googleBtn);
+    expect(mockStartGoogleSingIn).toHaveBeenCalled();
   });
 });
