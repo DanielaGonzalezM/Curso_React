@@ -1,7 +1,7 @@
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { addHours } from "date-fns";
-import { Navbar, CalendarEvent } from "../";
+import { Navbar, CalendarEvent, CalendarModal } from "../";
 import { getMessagesES, localizer } from "../../helpers";
 import { useState } from "react";
 
@@ -41,7 +41,7 @@ export const CalendarPage = () => {
   };
   const onViewChanged = (event) => {
     setLastView(event);
-    localStorage.setItem('lastView',event);
+    localStorage.setItem("lastView", event);
   };
   return (
     <>
@@ -61,6 +61,7 @@ export const CalendarPage = () => {
         onSelectEvent={onSelect}
         onView={onViewChanged}
       />
+      <CalendarModal />
     </>
   );
 };
