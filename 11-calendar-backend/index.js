@@ -10,12 +10,7 @@ const app = express();
 app.use(express.static("public"));
 
 //Rutas
-// app.get("/", (req, res) => {
-//   console.log("test");
-//   res.json({
-//     ok: true
-//   })
-// });
+app.use("/api/auth", require("./routes/auth"));
 
 //Escuchar peticiones
 app.listen(process.env.PORT, () => {
