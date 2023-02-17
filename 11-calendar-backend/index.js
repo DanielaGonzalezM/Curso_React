@@ -9,6 +9,9 @@ const app = express();
 //Directorio público
 app.use(express.static("public"));
 
+//Lectura y parseo del doby
+app.use(express.json());
+
 //Rutas
 app.use("/api/auth", require("./routes/auth"));
 

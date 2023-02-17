@@ -11,9 +11,9 @@ const {
 } = require("../controllers/auth");
 const router = Router();
 
-router.post("/", crearUsuario);
+router.post("/", loginUsuario);
 
-router.post("/new", loginUsuario);
+router.post("/new", crearUsuario);
 
 router.get("/renew", crearUrevalidarTokensuario);
 module.exports = router;
