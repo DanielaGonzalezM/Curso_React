@@ -10,6 +10,7 @@ const {
   loginUsuario,
   crearUrevalidarTokensuario,
 } = require("../controllers/auth");
+const { validarCampos } = require("../middlewares/validar-campos");
 const router = Router();
 
 router.post(
@@ -19,6 +20,7 @@ router.post(
     check("password", "El password debe ser de más de 6 caracteres").isLength({
       min: 6,
     }),
+    validarCampos,
   ],
   loginUsuario
 );
@@ -31,6 +33,7 @@ router.post(
     check("password", "El password debe ser de más de 6 caracteres").isLength({
       min: 6,
     }),
+    validarCampos,
   ],
   crearUsuario
 );
