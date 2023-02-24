@@ -5,14 +5,15 @@ const { generarJWT } = require("../helpers/jwt");
 
 const crearUsuario = async (req, res = response) => {
   const { email, password } = req.body;
-  let usuario = await Usuario.findOne({ email: email });
-  if (usuario) {
-    return res.status(400).json({
-      ok: false,
-      msg: "Usuario ya existe con ese correo",
-    });
-  }
   try {
+    let usuario = await Usuario.findOne({ email });
+    if (usuario) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Usuario ya existe con ese correo",
+      });
+    }
+
     usuario = new Usuario(req.body);
     //Encriptar contraseña
     const salt = bcrypt.genSaltSync();
@@ -41,7 +42,7 @@ const loginUsuario = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
-    const usuario = await Usuario.findOne({ email: email });
+    const usuario = await Usuario.findOne({ email });
     if (!usuario) {
       return res.status(400).json({
         ok: false,
@@ -57,9 +58,9 @@ const loginUsuario = async (req, res = response) => {
     }
 
     // token
-    const token = await generarJWT(usuario.uid, usuario.name);
+    const token = await generarJWT(usuario.id, usuario.name);
 
-    res.status(200).json({
+    res.json({
       ok: true,
       msg: "login correcto",
       uid: usuario.id,
@@ -74,15 +75,22 @@ const loginUsuario = async (req, res = response) => {
   }
 };
 
-const crearUrevalidarTokensuario = (req, res = response) => {
+const revalidarToken = async (req, res = response) => {
+  const { uid, name } = req;
+
+  // Generar JWT
+  const token = await generarJWT(uid, name);
+
   res.json({
     ok: true,
-    msg: "renew",
+    token,
+    uid,
+    name,
   });
 };
 
 module.exports = {
   crearUsuario,
   loginUsuario,
-  crearUrevalidarTokensuario,
+  revalidarToken,
 };

@@ -1,6 +1,6 @@
-const { Schema, model, models } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const UsuarioShema = Schema({
+const UsuarioSchema = Schema({
   name: {
     type: String,
     require: true,
@@ -16,4 +16,4 @@ const UsuarioShema = Schema({
   },
 });
 
-module.exports = model("Usuario", UsuarioShema);
+module.exports = model("Usuario", UsuarioSchema);
