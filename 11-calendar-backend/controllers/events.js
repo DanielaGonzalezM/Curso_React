@@ -1,12 +1,15 @@
 const { response } = require("express");
 const Evento = require("../models/Eventos");
 
-const getEventos = (req, res = response) => {
+const getEventos = async (req, res = response) => {
+  const eventos = await Evento.find().populate("user", "name");
+
   res.json({
     ok: true,
-    msg: "getEventos",
+    eventos,
   });
 };
+
 const crearEvento = async (req, res = response) => {
   const evento = new Evento(req.body);
   try {
@@ -21,12 +24,14 @@ const crearEvento = async (req, res = response) => {
     res.status(500).json({ ok: false, msg: "Errorr" });
   }
 };
+
 const actualizarEvento = (req, res = response) => {
   res.json({
     ok: true,
     msg: "actualizarEvento",
   });
 };
+
 const eliminarEvento = (req, res = response) => {
   res.json({
     ok: true,
