@@ -31,13 +31,13 @@ const actualizarEvento = async (req, res = response) => {
   try {
     const evento = await Evento.findById(eventoID);
     if (!evento) {
-      res.status(404).json({
+      return res.status(404).json({
         ok: false,
         msg: "Evento no existe con ese id",
       });
     }
     if (evento.user.toString() !== uid) {
-      res.status(401).json({
+      return res.status(401).json({
         ok: false,
         msg: "Usuario no autorizado",
       });
@@ -53,7 +53,7 @@ const actualizarEvento = async (req, res = response) => {
       { new: true }
     );
 
-    res.json({ ok: true, msg: eventoActualizado });
+    return res.json({ ok: true, msg: eventoActualizado });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -63,11 +63,34 @@ const actualizarEvento = async (req, res = response) => {
   }
 };
 
-const eliminarEvento = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: "eliminarEvento",
-  });
+const eliminarEvento = async (req, res = response) => {
+  const eventoID = req.params.id;
+  const uid = req.uid;
+  try {
+    const evento = await Evento.findById(eventoID);
+    if (!evento) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Evento no existe con ese id",
+      });
+    }
+    if (evento.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: "Usuario no autorizado",
+      });
+    }
+
+    await Evento.findByIdAndDelete(eventoID);
+
+    return res.json({ ok: true, msg: "eliminado" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Hable con el admin",
+    });
+  }
 };
 
 module.exports = { getEventos, crearEvento, actualizarEvento, eliminarEvento };
