@@ -68,6 +68,7 @@ const loginUsuario = async (req, res = response) => {
       token,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       ok: false,
       msg: "Error",
@@ -81,7 +82,7 @@ const revalidarToken = async (req, res = response) => {
   // Generar JWT
   const token = await generarJWT(uid, name);
 
-  res.json({
+  return res.json({
     ok: true,
     token,
     uid,
