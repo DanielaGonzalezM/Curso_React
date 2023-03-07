@@ -6,6 +6,7 @@ import {
   onSetActionEvent,
   onUpdateEvent,
   onDeleteEvent,
+  onLoadEvents,
 } from "../store";
 
 export const useCalendarStore = () => {
@@ -36,6 +37,7 @@ export const useCalendarStore = () => {
       const { data } = await calendarApi.get("/events");
       const events = convertEventsToDateEvents(data.eventos);
       console.log(events);
+      dispatch(onLoadEvents(events));
     } catch (error) {
       console.log("Error cargando eventos");
       console.log(error);
