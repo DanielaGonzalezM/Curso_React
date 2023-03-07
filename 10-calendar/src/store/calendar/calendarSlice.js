@@ -57,13 +57,19 @@ export const calendarSlice = createSlice({
         }
       });
     },
+    onLogOutCalendar: (state) => {
+      state.isLoadingEvents = false;
+      state.events = [];
+      state.activeEvent = null;
+    },
   },
 });
 // Action creators are generated for each case reducer function
 export const {
-  onSetActionEvent,
   onAddNewEvent,
-  onUpdateEvent,
   onDeleteEvent,
   onLoadEvents,
+  onLogOutCalendar,
+  onSetActionEvent,
+  onUpdateEvent,
 } = calendarSlice.actions;
