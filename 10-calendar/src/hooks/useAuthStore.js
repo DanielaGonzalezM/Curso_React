@@ -12,7 +12,6 @@ export const useAuthStore = () => {
 
   const startLogin = async ({ email, password }) => {
     dispatch(onChecking());
-    console.log(email, password);
     try {
       const { data } = await calendarApi.post("/auth", { email, password });
       localStorage.setItem("token", data.token);
@@ -69,7 +68,8 @@ export const useAuthStore = () => {
       );
     } catch (error) {
       console.log(error);
-      dispatch(onLogin());
+      localStorage.clear();
+      dispatch(onLogout());
     }
   };
   const startLogout = () => {
