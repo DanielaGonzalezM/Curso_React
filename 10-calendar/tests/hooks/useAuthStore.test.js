@@ -114,4 +114,24 @@ describe("Pruebas en useAuthStore", () => {
 
     spy.mockRestore();
   });
+
+  test("should fallar la la creación startRegister", async () => {
+    const mockStore = getMockStore({ ...notAuthenticatedState });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    await act(async () => {
+      await result.current.startRegister(testUserCredentials);
+    });
+
+    const { errorMessage, status, user } = result.current;
+    expect({ errorMessage, status, user }).toEqual({
+      errorMessage: "Usuario ya existe con ese correo",
+      status: "not-authenticated",
+      user: {},
+    });
+  });
 });
