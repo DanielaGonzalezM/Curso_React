@@ -5,6 +5,9 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { initialState, notAuthenticatedState } from "../fixtures/authStates";
 import { testUserCredentials } from "../fixtures/testUser";
+import { calendarApi } from "../../src/api";
+
+beforeEach(() => localStorage.clear());
 const getMockStore = (initialState) => {
   return configureStore({
     reducer: {
@@ -35,7 +38,6 @@ describe("Pruebas en useAuthStore", () => {
   });
 
   test("should realizar el login correctamente", async () => {
-    localStorage.clear();
     const mockStore = getMockStore({ ...notAuthenticatedState });
     const { result } = renderHook(() => useAuthStore(), {
       wrapper: ({ children }) => (
@@ -56,7 +58,6 @@ describe("Pruebas en useAuthStore", () => {
   });
 
   test("should fallar la autenticación", async () => {
-    localStorage.clear();
     const mockStore = getMockStore({ ...notAuthenticatedState });
     const { result } = renderHook(() => useAuthStore(), {
       wrapper: ({ children }) => (
@@ -78,5 +79,39 @@ describe("Pruebas en useAuthStore", () => {
       user: {},
     });
     waitFor(() => expect(result.current.errorMessage).toBe(undefined));
+  });
+
+  test("should crear un usuario", async () => {
+    const newUser = {
+      email: "test_2@mail.com",
+      password: "123456",
+      name: "Tester2",
+    };
+    const mockStore = getMockStore({ ...notAuthenticatedState });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+    const spy = jest.spyOn(calendarApi, "post").mockReturnValue({
+      data: {
+        ok: true,
+        uid: "uid1234",
+        name: "Test User",
+        token: "AlgunToken",
+      },
+    });
+    await act(async () => {
+      await result.current.startRegister(newUser);
+    });
+
+    const { errorMessage, status, user } = result.current;
+    expect({ errorMessage, status, user }).toEqual({
+      errorMessage: undefined,
+      status: "authenticated",
+      user: { name: "Test User", uid: "uid1234" },
+    });
+
+    spy.mockRestore();
   });
 });
