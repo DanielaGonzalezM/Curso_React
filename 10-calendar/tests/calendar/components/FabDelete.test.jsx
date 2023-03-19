@@ -4,7 +4,7 @@ import { useCalendarStore } from "../../../src/hooks/useCalendarStore";
 
 jest.mock("../../../src/hooks/useCalendarStore");
 describe("pruebas en FabDelete", () => {
-  const mockStarttDeletingEvent = jest.fn();
+  const mockStartDeleteEvent = jest.fn();
   beforeEach(() => jest.clearAllMocks());
   test("should mostrar el componente correctamente", () => {
     useCalendarStore.mockReturnValue({
@@ -29,14 +29,14 @@ describe("pruebas en FabDelete", () => {
     expect(btn.style.display).toBe("");
   });
 
-  test("debe llamar startDeletingEvent si hay evento activo", () => {
+  test("debe llamar startDeleteEvent si hay evento activo", () => {
     useCalendarStore.mockReturnValue({
       hasEventSelected: true,
-      starttDeletingEvent: mockStarttDeletingEvent,
+      startDeleteEvent: mockStartDeleteEvent,
     });
     render(<FabDelete />);
     const btn = screen.getByLabelText("btn-delete");
     fireEvent.click(btn);
-    expect(mockStarttDeletingEvent).toHaveBeenCalled();
+    expect(mockStartDeleteEvent).toHaveBeenCalled();
   });
 });
